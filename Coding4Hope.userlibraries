@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="lib">
+    <archive path="E:/OneDrive/trader/OneDrive/FIAP/Sistemas de Informação/2020/Coding4Hope/Code/Coding4Hope/lib/ojdbc8.jar" />
+  </library>
+  <library name="ojdbc8">
+    <archive path="H:/developer/IdeaProjects/untitled/lib/ojdbc8.jar" />
+  </library>
+  <library name="ojdbc8 (2)">
+    <archive path="C:/Users/Eduardo/Downloads/Classes do Projeto C4H/Coding4Hope/lib/ojdbc8.jar" />
+  </library>
+</eclipse-userlibraries>
+
