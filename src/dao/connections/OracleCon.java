@@ -1,12 +1,16 @@
 package dao.connections;
 
+import interfaces.IConnection;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class OracleCon {
+public class OracleCon implements IConnection {
 
-    public static Connection con() {
+
+    @Override
+    public Connection con() {
 
         Connection connection = null;
 

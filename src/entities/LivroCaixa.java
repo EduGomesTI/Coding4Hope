@@ -1,20 +1,18 @@
 package entities;
 
-import entities.enuns.Operacao;
-
 import java.util.Date;
 
 public class LivroCaixa extends Entidade{
 
     private Date dataOperacao;
-    private Operacao operacao;
+    private String operacao;
     private String descricao;
     private double valor;
 
     public LivroCaixa() {
     }
 
-    public LivroCaixa(int id, Date dataOperacao, Operacao operacao, String descricao, double valor) {
+    public LivroCaixa(int id, Date dataOperacao, String operacao, String descricao, double valor) {
         super(id);
         this.dataOperacao = dataOperacao;
         this.operacao = operacao;
@@ -30,11 +28,11 @@ public class LivroCaixa extends Entidade{
         this.dataOperacao = dataOperacao;
     }
 
-    public Operacao getOperacao() {
+    public String getOperacao() {
         return operacao;
     }
 
-    public void setOperacao(Operacao operacao) {
+    public void setOperacao(String operacao) {
         this.operacao = operacao;
     }
 

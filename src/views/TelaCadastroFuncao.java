@@ -1,8 +1,13 @@
 package views;
 
+import dao.FuncaoDAO;
+import entities.Funcao;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.*;
 
@@ -11,34 +16,40 @@ public class TelaCadastroFuncao extends JFrame {
 	private JTextField inputId;
 	private JTextField inputDescricao;
 	
-	private JCheckBox check;
+	private JCheckBox checkUsuario;
+	private JCheckBox checkDoacaoProduto;
+	private JCheckBox checkLivroCaixa;
+	private JCheckBox checkFuncao;
 
-	private JLabel id;
-	private JLabel descricao;
-	private JLabel cadastrarUsuario;
-	private JLabel cadastrarFuncao;
-	private JLabel cadDoacaoProd;
-	private JLabel acessLivroCaixa;
+	private JLabel lblId;
+	private JLabel lblDescricao;
+	private JLabel lblCadastrarUsuario;
+	private JLabel lblCadastrarFuncao;
+	private JLabel lblCadDoacaoProd;
+	private JLabel lblAcessLivroCaixa;
 	
 
 	private JButton btnInserir;
 	private JButton btnPesquisar;
 	private JButton btnAlterar;
 	private JButton btnExcluir;
-	private JButton btnCancelar;
+	private JButton btnVoltar;
 
 	private JPanel panelButton;
 	private JPanel panelTelaCadastroFuncao;
 
+	private JTable tableData;
+
 	Handler handler = new Handler();
 
 	public TelaCadastroFuncao() {
-		super("Tela Cadastro de Usuarios");
+		super("Tela Cadastro de Funções de Usuários");
 		this.setLayout(new BorderLayout());
 		this.setSize(500, 500);
 
 		panelButton = new JPanel(new FlowLayout());
 		panelTelaCadastroFuncao = new JPanel(new GridBagLayout());
+
 
 		GridBagConstraints positions = new GridBagConstraints();
 		positions.insets = new Insets(4, 2, 4, 2);
@@ -48,33 +59,33 @@ public class TelaCadastroFuncao extends JFrame {
 
 		positions.gridx = 0;
 		positions.gridy = 0;
-		id = new JLabel("Id:");
-		panelTelaCadastroFuncao.add(id, positions);
+		lblId = new JLabel("Id:");
+		panelTelaCadastroFuncao.add(lblId, positions);
 
 		positions.gridx = 0;
 		positions.gridy = 1;
-		descricao = new JLabel("Descrição:");
-		panelTelaCadastroFuncao.add(descricao, positions);
+		lblDescricao = new JLabel("Descrição:");
+		panelTelaCadastroFuncao.add(lblDescricao, positions);
 
 		positions.gridx = 0;
 		positions.gridy = 2;
-		cadastrarUsuario = new JLabel("Cadastrar Usuário:");
-		panelTelaCadastroFuncao.add(cadastrarUsuario, positions);
+		lblCadastrarUsuario = new JLabel("Cadastrar Usuário:");
+		panelTelaCadastroFuncao.add(lblCadastrarUsuario, positions);
 
 		positions.gridx = 0;
 		positions.gridy = 3;
-		cadastrarFuncao = new JLabel("Cadastrar Função:");
-		panelTelaCadastroFuncao.add(cadastrarFuncao, positions);
+		lblCadastrarFuncao = new JLabel("Cadastrar Função:");
+		panelTelaCadastroFuncao.add(lblCadastrarFuncao, positions);
 
 		positions.gridx = 0;
 		positions.gridy = 4;
-		cadDoacaoProd = new JLabel("Cadastrar Doação de Produtos:");
-		panelTelaCadastroFuncao.add(cadDoacaoProd, positions);
+		lblCadDoacaoProd = new JLabel("Cadastrar Doação de Produtos:");
+		panelTelaCadastroFuncao.add(lblCadDoacaoProd, positions);
 
 		positions.gridx = 0;
 		positions.gridy = 5;
-		acessLivroCaixa = new JLabel("Acessar Livro Caixa:");
-		panelTelaCadastroFuncao.add(acessLivroCaixa, positions);
+		lblAcessLivroCaixa = new JLabel("Acessar Livro Caixa:");
+		panelTelaCadastroFuncao.add(lblAcessLivroCaixa, positions);
 
 
 		/* INPUT and CHECKBOX */
@@ -92,23 +103,23 @@ public class TelaCadastroFuncao extends JFrame {
 
 		positions.gridx = 1;
 		positions.gridy = 2;
-		check = new JCheckBox();
-		panelTelaCadastroFuncao.add(check, positions);
+		checkUsuario = new JCheckBox();
+		panelTelaCadastroFuncao.add(checkUsuario, positions);
 
 		positions.gridx = 1;
 		positions.gridy = 3;
-		check = new JCheckBox();
-		panelTelaCadastroFuncao.add(check, positions);
+		checkFuncao = new JCheckBox();
+		panelTelaCadastroFuncao.add(checkFuncao, positions);
 
 		positions.gridx = 1;
 		positions.gridy = 4;
-		check = new JCheckBox();
-		panelTelaCadastroFuncao.add(check, positions);
+		checkDoacaoProduto = new JCheckBox();
+		panelTelaCadastroFuncao.add(checkDoacaoProduto, positions);
 
 		positions.gridx = 1;
 		positions.gridy = 5;
-		check = new JCheckBox();
-		panelTelaCadastroFuncao.add(check, positions);
+		checkLivroCaixa = new JCheckBox();
+		panelTelaCadastroFuncao.add(checkLivroCaixa, positions);
 
 		
 		/* BUTTONS */
@@ -129,12 +140,34 @@ public class TelaCadastroFuncao extends JFrame {
 		panelButton.add(btnExcluir);
 		btnExcluir.addActionListener(handler);
 
-		btnCancelar = new JButton("Cancelar");
-		panelButton.add(btnCancelar);
-		btnCancelar.addActionListener(handler);
+		btnVoltar = new JButton("Voltar");
+		panelButton.add(btnVoltar);
+		btnVoltar.addActionListener(handler);
+
+		ArrayList<Funcao> funcoes;
+		FuncaoDAO funcaoDAO = new FuncaoDAO();
+		funcoes = funcaoDAO.retornarTodos();
+		String[][] data = new String[funcoes.size()][6];
+
+		for(int i = 0; i< funcoes.size();i++){
+			data[i][0] = String.valueOf(funcoes.get(i).getId());
+			data[i][1] = String.valueOf(funcoes.get(i).getFuncao());
+			data[i][2] = String.valueOf(funcoes.get(i).getCadastrarUsuario());
+			data[i][3] = String.valueOf(funcoes.get(i).getCadastrarDoacaoProduto());
+			data[i][4] = String.valueOf(funcoes.get(i).getCadastrarFuncao());
+			data[i][5] = String.valueOf(funcoes.get(i).getCadastrarLivroCaixa());
+		}
+
+		String[] columName = {"Função ID", "Descrição", "Cad. Usuário?", "Cad. Doações?", "Cad. Funções?", "Acessar Livro Caixa?"};
+
+		tableData = new JTable(data, columName);
+		tableData.setBounds(30, 40, 400, 400);
+		JScrollPane sp = new JScrollPane(tableData);
+		panelButton.add(sp);
 
 		add(panelTelaCadastroFuncao, BorderLayout.NORTH);
 		add(panelButton, BorderLayout.CENTER);
+
 
 	}
 
@@ -143,21 +176,149 @@ public class TelaCadastroFuncao extends JFrame {
 		public void actionPerformed(ActionEvent event) {
 			try {
 				if (event.getSource() == btnInserir) {
-					JOptionPane.showMessageDialog(null, "Usuário inserido com sucesso.");
+
+					Funcao funcao = new Funcao();
+
+					funcao.setFuncao(inputDescricao.getText());
+
+					if(checkDoacaoProduto.isSelected()){
+						funcao.setCadastrarDoacaoProduto("S");
+					}else{
+						funcao.setCadastrarDoacaoProduto("N");
+					}
+					if(checkFuncao.isSelected()){
+						funcao.setCadastrarFuncao("S");
+					}else{
+						funcao.setCadastrarFuncao("N");
+					}
+					if(checkLivroCaixa.isSelected()){
+						funcao.setCadastrarLivroCaixa("S");
+					}else{
+						funcao.setCadastrarLivroCaixa("N");
+					}
+					if(checkUsuario.isSelected()){
+						funcao.setCadastrarUsuario("S");
+					}else{
+						funcao.setCadastrarUsuario("N");
+					}
+					FuncaoDAO funcaoDAO = new FuncaoDAO();
+
+					funcaoDAO.inserir(funcao);
+
+					JOptionPane.showMessageDialog(null, "Função inserida com sucesso.");
+
 				} else if (event.getSource() == btnPesquisar) {
-					JOptionPane.showMessageDialog(null, "Pesquisa está sendo realizada...Aguarde", "Pesquisando...",
-							JOptionPane.WARNING_MESSAGE);
+
+					Funcao funcao = new Funcao();
+
+					funcao.setId(Integer.parseInt(inputId.getText()));
+
+					if(funcao.getId() != 0) {
+
+						FuncaoDAO funcaoDAO = new FuncaoDAO();
+						funcaoDAO.localizar(funcao);
+
+						inputDescricao.setText(funcao.getFuncao());
+
+						if (funcao.getCadastrarDoacaoProduto().equals("S")) {
+							checkDoacaoProduto.setSelected(true);
+						} else {
+							checkDoacaoProduto.setSelected(false);
+						}
+
+						if ((funcao.getCadastrarFuncao().equals("S"))) {
+							checkFuncao.setSelected(true);
+						} else {
+							checkFuncao.setSelected(false);
+						}
+
+						if(funcao.getCadastrarLivroCaixa().equals("S")){
+							checkLivroCaixa.setSelected(true);
+						}else{
+							checkLivroCaixa.setSelected(false);
+						}
+
+						if(funcao.getCadastrarUsuario().equals("S")){
+							checkUsuario.setSelected(true);
+						}else{
+							checkUsuario.setSelected(false);
+						}
+
+					}else{
+						JOptionPane.showMessageDialog(null, "O campo ID não poed ficar vazio.");
+					}
+
 				} else if (event.getSource() == btnAlterar) {
-					JOptionPane.showMessageDialog(null, "Alteração realizada com sucesso.");
+
+					Funcao funcao = new Funcao();
+
+					if (inputId.getText() != "") {
+
+						funcao.setId(Integer.parseInt(inputId.getText()));
+
+						funcao.setFuncao(inputDescricao.getText());
+
+						if (checkDoacaoProduto.isSelected()) {
+							funcao.setCadastrarDoacaoProduto("S");
+						} else {
+							funcao.setCadastrarDoacaoProduto("N");
+						}
+						if (checkFuncao.isSelected()) {
+							funcao.setCadastrarFuncao("S");
+						} else {
+							funcao.setCadastrarFuncao("N");
+						}
+						if (checkLivroCaixa.isSelected()) {
+							funcao.setCadastrarLivroCaixa("S");
+						} else {
+							funcao.setCadastrarLivroCaixa("N");
+						}
+						if (checkUsuario.isSelected()) {
+							funcao.setCadastrarUsuario("S");
+						} else {
+							funcao.setCadastrarUsuario("N");
+						}
+						FuncaoDAO funcaoDAO = new FuncaoDAO();
+
+						funcaoDAO.alterar(funcao);
+
+						JOptionPane.showMessageDialog(null, "Função alterada com sucesso.");
+					} else {
+						JOptionPane.showMessageDialog(null, "O campo ID não pode ficar vazio.");
+					}
+
+
+
+
 				} else if (event.getSource() == btnExcluir) {
 					int opcao = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este usuário?", "Excluir",
 							JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 
 					if (opcao == 0) {
-						JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
+
+						if (inputId.getText() != ""){
+
+							Funcao funcao = new Funcao();
+
+							funcao.setId(Integer.parseInt(inputId.getText()));
+
+							FuncaoDAO funcaoDAO = new FuncaoDAO();
+
+							funcaoDAO.remover(funcao);
+
+							JOptionPane.showMessageDialog(null, "Função excluída com sucesso!");
+
+						}else{
+							JOptionPane.showMessageDialog(null, "O campo ID não pode ficar vazio");
+						}
+
+
 					}
-				}else if (event.getSource() == btnCancelar) {
-					JOptionPane.showMessageDialog(null, "Operação cancelada!");
+				}else if (event.getSource() == btnVoltar) {
+					TelaMenu telaMenu = new TelaMenu();
+					telaMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
+					telaMenu.setVisible(true);
+					dispose();
 				}
 			} catch (Exception e) {
 				throw new IllegalArgumentException("Ocorreu algum erro na origem do evento!");

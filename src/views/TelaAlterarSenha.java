@@ -105,10 +105,10 @@ public class TelaAlterarSenha extends JFrame {
 			try {
 				if (event.getSource() == btnAlterarSenha) {
 					Login login = new Login();
-					//if(login.alterarSenha(inputNovaSenha.getText(), inputRepetirSenha.getText(), inputCPF.getText(), inputemail.getText())){
-					if(login.alterarSenha("1234", "1234", "271.144.988-29", "abc")){
+					if(login.alterarSenha(inputNovaSenha.getText(), inputRepetirSenha.getText(), inputCPF.getText(), inputemail.getText())){
 						JOptionPane.showMessageDialog(null, "Senha alterado com sucesso!");
 					}
+					dispose();
 
 				} else if (event.getSource() == btnVoltar) {
 					dispose();
