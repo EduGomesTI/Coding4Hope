@@ -1,9 +1,7 @@
 package dao;
 
-import dao.connections.MySQLCon;
 import dao.connections.OracleCon;
 import entities.Funcao;
-import interfaces.IConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,9 +15,7 @@ public class FuncaoDAO {
 
     public void inserir(Funcao funcao){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -27,9 +23,9 @@ public class FuncaoDAO {
             comandoSQL = conexao.prepareStatement(
                     "INSERT INTO " +
                         "T_FUNCAO " +
-                         "(DS_FUNCAO, BOL_CADASTRAR_USUARIO, BOL_CADASTRAR_DOACAO_PRODUTO, BOL_LIVRO_CAIXA, BOL_CADASTRAR_FUNCAO) " +
+                         "(ID_FUNCAO, DS_FUNCAO, BOL_CADASTRAR_USUARIO, BOL_CADASTRAR_DOACAO_PRODUTO, BOL_LIVRO_CAIXA, BOL_CADASTRAR_FUNCAO) " +
                          "VALUES " +
-                         "(?, ?, ?, ?, ?)"
+                         "(SQ_FUNCAO, ?, ?, ?, ?, ?"
             );
 
             comandoSQL.setString(1, funcao.getFuncao());
@@ -52,9 +48,7 @@ public class FuncaoDAO {
 
     public void alterar(Funcao funcao){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -94,9 +88,7 @@ public class FuncaoDAO {
 
     public void remover(Funcao funcao){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -118,9 +110,7 @@ public class FuncaoDAO {
 
     public void localizar(Funcao funcao){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -150,9 +140,7 @@ public class FuncaoDAO {
 
         ArrayList<Funcao> funcoes = new ArrayList<Funcao>();
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 

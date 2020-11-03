@@ -1,10 +1,8 @@
 package dao;
 
-import dao.connections.MySQLCon;
 import dao.connections.OracleCon;
 import entities.LivroCaixa;
 import entities.enuns.Operacao;
-import interfaces.IConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,9 +14,7 @@ public class LivroCaixaDAO {
 
     public void inserir(LivroCaixa livroCaixa){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -41,7 +37,7 @@ public class LivroCaixaDAO {
             );
 
             comandoSQL.setDate(1, (Date) livroCaixa.getDataOperacao());
-            comandoSQL.setString(2, livroCaixa.getOperacao());
+            comandoSQL.setString(2, livroCaixa.getOperacao().getTipo());
             comandoSQL.setDouble(3, livroCaixa.getValor());
             comandoSQL.setString(4, livroCaixa.getDescricao());
 
@@ -58,9 +54,7 @@ public class LivroCaixaDAO {
 
     public void alterar(LivroCaixa livroCaixa){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -77,7 +71,7 @@ public class LivroCaixaDAO {
                     "ID_LIVRO_CAIXA=?");
 
             comandoSQL.setDate(1, (Date) livroCaixa.getDataOperacao());
-            comandoSQL.setString(2, livroCaixa.getOperacao());
+            comandoSQL.setString(2, livroCaixa.getOperacao().getTipo());
             comandoSQL.setDouble(3, livroCaixa.getValor());
             comandoSQL.setString(4, livroCaixa.getDescricao());
 
@@ -95,9 +89,7 @@ public class LivroCaixaDAO {
 
     public void remover(LivroCaixa livroCaixa){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -119,9 +111,7 @@ public class LivroCaixaDAO {
 
     public void localizar(LivroCaixa livroCaixa){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -135,7 +125,8 @@ public class LivroCaixaDAO {
             if(resultado.next()) {
                 livroCaixa.setId(resultado.getInt(1));
                 livroCaixa.setDataOperacao(resultado.getDate(2));
-                livroCaixa.setOperacao(resultado.getString(3));
+                String Op = resultado.getString(3);
+                livroCaixa.setOperacao(Operacao.valueOf(Op));
                 livroCaixa.setValor(resultado.getDouble(4));
                 livroCaixa.setDescricao(resultado.getString(5));
             }
@@ -150,9 +141,7 @@ public class LivroCaixaDAO {
 
         ArrayList<LivroCaixa> livroCaixas = new ArrayList<LivroCaixa>();
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -167,10 +156,10 @@ public class LivroCaixaDAO {
                 LivroCaixa livroCaixa = new LivroCaixa();
                 livroCaixa.setId(resultados.getInt(1));
                 livroCaixa.setDataOperacao(resultados.getDate(2));
-                livroCaixa.setOperacao(resultados.getString(3));
-                livroCaixa.setDescricao(resultados.getString(4));
-                livroCaixa.setValor(resultados.getDouble(5));
-
+                String Op = resultados.getString(3);
+                livroCaixa.setOperacao(Operacao.valueOf(Op));
+                livroCaixa.setValor(resultados.getDouble(4));
+                livroCaixa.setDescricao(resultados.getString(5));
 
                 livroCaixas.add(livroCaixa);
             }

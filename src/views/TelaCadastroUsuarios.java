@@ -28,7 +28,7 @@ public class TelaCadastroUsuarios extends JFrame {
 	private JButton btnPesquisar;
 	private JButton btnAlterar;
 	private JButton btnExcluir;
-	private JButton btnVoltar;
+	private JButton btnCancelar;
 
 	private JPanel panelButton;
 	private JPanel panelTelaCadastroUsuarios;
@@ -140,9 +140,9 @@ public class TelaCadastroUsuarios extends JFrame {
 		panelButton.add(btnExcluir);
 		btnExcluir.addActionListener(handler);
 
-		btnVoltar = new JButton("Voltar");
-		panelButton.add(btnVoltar);
-		btnVoltar.addActionListener(handler);
+		btnCancelar = new JButton("Cancelar");
+		panelButton.add(btnCancelar);
+		btnCancelar.addActionListener(handler);
 
 		add(panelTelaCadastroUsuarios, BorderLayout.NORTH);
 		add(panelButton, BorderLayout.CENTER);
@@ -167,11 +167,8 @@ public class TelaCadastroUsuarios extends JFrame {
 					if (opcao == 0) {
 						JOptionPane.showMessageDialog(null, "Usuário excluído com sucesso!");
 					}
-				}else if (event.getSource() == btnVoltar) {
-					TelaMenu telaMenu = new TelaMenu();
-					telaMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
-					telaMenu.setVisible(true);
-					dispose();
+				}else if (event.getSource() == btnCancelar) {
+					JOptionPane.showMessageDialog(null, "Operação cancelada!");
 				}
 			} catch (Exception e) {
 				throw new IllegalArgumentException("Ocorreu algum erro na origem do evento!");

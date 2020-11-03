@@ -26,15 +26,15 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="39294a82-464f-450a-ab78-ca3b7a048540">
-      <console name="ConMySQL" type="STANDARD" schema="" session="Main" />
+    <connection id="0148083c-0e32-4e7f-a546-54cf2641c37b">
+      <console name="Oracle FIAP" type="STANDARD" schema="RM82686" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
-    <connection id="39294a82-464f-450a-ab78-ca3b7a048540" />
+    <connection id="0148083c-0e32-4e7f-a546-54cf2641c37b" />
   </component>
   <component name="DBNavigator.Project.EditorStateManager">
     <last-used-providers />
@@ -59,23 +59,23 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="39294a82-464f-450a-ab78-ca3b7a048540" active="true">
+      <connection id="0148083c-0e32-4e7f-a546-54cf2641c37b" active="true">
         <database>
-          <name value="ConMySQL" />
+          <name value="Oracle FIAP" />
           <description value="" />
-          <database-type value="MYSQL" />
+          <database-type value="ORACLE" />
           <config-type value="BASIC" />
-          <database-version value="9999.0" />
+          <database-version value="19.0" />
           <driver-source value="BUILTIN" />
-          <driver-library value="E:\OneDrive\trader\OneDrive\FIAP\Sistemas de Informação\2020\Coding4Hope\Code\Coding4Hope\lib" />
+          <driver-library value="" />
           <driver value="" />
-          <url-type value="DATABASE" />
-          <host value="localhost" />
-          <port value="3306" />
-          <database value="mysql" />
-          <type value="USER" />
-          <user value="root" />
-          <deprecated-pwd value="" />
+          <url-type value="SID" />
+          <host value="oracle.fiap.com.br" />
+          <port value="1521" />
+          <database value="orcl" />
+          <type value="USER_PASSWORD" />
+          <user value="rm82686" />
+          <deprecated-pwd value="MTAxMjc2" />
         </database>
         <properties>
           <auto-commit value="false" />

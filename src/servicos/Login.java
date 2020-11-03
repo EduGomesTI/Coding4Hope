@@ -1,6 +1,5 @@
 package servicos;
 
-import dao.LoginDAO;
 import dao.UsuarioDAO;
 import entities.Usuario;
 import interfaces.IValidarDocumento;
@@ -11,11 +10,11 @@ public class Login {
 
     Usuario user = new Usuario();
 
-    LoginDAO LoginDAO = new LoginDAO();
+    UsuarioDAO userDAO = new UsuarioDAO();
 
     public boolean isLogin(String email, String senha){
 
-        user = LoginDAO.login(email, senha);
+        user = userDAO.login(email, senha);
 
         return user.getId() != 0;
 
@@ -25,7 +24,7 @@ public class Login {
 
         IValidarDocumento _cpf = new CPF();
 
-        user = LoginDAO.loginComCPF(_cpf.formatarSemPontos(cpf), email);
+        user = userDAO.loginComCPF(_cpf.formatarSemPontos(cpf), email);
 
         return user.getId() != 0;
     }
@@ -42,7 +41,7 @@ public class Login {
                 //Realiza a alteração da senha
                 user.setSenha(novaSenha);
                // user.setCpf(cpf);
-                LoginDAO.alterarSenha(user);
+                userDAO.alterarSenha(user);
                 return true;
 
             } else {

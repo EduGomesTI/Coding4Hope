@@ -100,7 +100,7 @@ public class TelaLogin extends JFrame {
 			try {
 				if (event.getSource() == btnLogin) {
 					Login login = new Login();
-					if(login.isLogin(inputEmail.getText(), inputSenha.getText())) {
+					if(login.isLogin(inputEmail.getText(), inputSenha.getText()) == true) {
 						TelaMenu telaMenu = new TelaMenu();
 						telaMenu.setDefaultCloseOperation(EXIT_ON_CLOSE);
 						telaMenu.setVisible(true);
@@ -128,7 +128,5 @@ public class TelaLogin extends JFrame {
 		TelaLogin telaLogin = new TelaLogin();
 		telaLogin.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		telaLogin.setVisible(true);
-
 	}
-
 }

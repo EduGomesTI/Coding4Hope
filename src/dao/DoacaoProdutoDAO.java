@@ -1,9 +1,7 @@
 package dao;
 
-import dao.connections.MySQLCon;
 import dao.connections.OracleCon;
 import entities.DoacaoProduto;
-import interfaces.IConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,9 +12,7 @@ public class DoacaoProdutoDAO {
 
     public void inserir(DoacaoProduto produto){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -46,9 +42,7 @@ public class DoacaoProdutoDAO {
 
     public void alterar(DoacaoProduto produto){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -82,9 +76,7 @@ public class DoacaoProdutoDAO {
 
     public void remover(DoacaoProduto produto){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -106,9 +98,7 @@ public class DoacaoProdutoDAO {
 
     public void localizar(DoacaoProduto produto){
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
@@ -135,9 +125,7 @@ public class DoacaoProdutoDAO {
 
         ArrayList<DoacaoProduto> doacoes = new ArrayList<DoacaoProduto>();
 
-        IConnection conn = new MySQLCon();
-
-        Connection conexao = conn.con();
+        conexao = OracleCon.con();
 
         PreparedStatement comandoSQL = null;
 
